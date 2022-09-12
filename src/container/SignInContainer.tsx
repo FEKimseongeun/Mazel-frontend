@@ -8,11 +8,6 @@ import logoImg from "../assets/images/logoimg.png";
 import CenterAlignedLink from "../components/SignIn/CenterAlignedLink";
 import RememberCheck from "../components/SignIn/RememberCheck";
 
-const User = {
-    id: "test1234@naver.com",
-    pw: "@test1234",
-};
-
 export const removeWhitespace = (text: string) => {
     const regex = /\s/g;
     return text.replace(regex, "");
@@ -52,8 +47,8 @@ const SignInContainer: React.FC = () => {
         e.preventDefault();
         console.log(id, pw);
         const data = {
-            email: "test@gmail.com",
-            passwd: "gus29701**",
+            email: id,
+            passwd: pw,
         };
         /* eslint-disable */
         const qs = require("qs");

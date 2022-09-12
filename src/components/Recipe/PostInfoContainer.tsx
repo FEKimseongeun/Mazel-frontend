@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import Block from "./Block";
-import star_empty from "../assets/images/star_empty.png";
-import star_filled from "../assets/images/star_filled.png";
+import star_empty from "../../assets/images/star_empty.png";
+import star_filled from "../../assets/images/star_filled.png";
 
 type ObjType = {
     [index: string]: string;

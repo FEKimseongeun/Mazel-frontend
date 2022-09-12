@@ -75,15 +75,8 @@ const ProductCard = ({ product }: Props) => {
     const deUrl = window.btoa(product.img);
     const imgUrl = `data:image/png;base64,${deUrl}`;
     const handleClick = () => {
-        // const token = sessionStorage.getItem("token");
-
-        //     "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjE5MmEyODBhLWQ5ZGUtNDU4ZS04NGNlLTdiODBiZDFiODhkYyIsImV4cCI6MTY2MTA4MzQ2OX0.2uJr0DZmc09ucKzutV22kCirvoDxhNUF9JFomA4bQWQ";
-        // await axios.get(`http://mazle.ml/drink/get/48`).then((response) => {
-        //     console.log(response);
-        // });
         axios.defaults.withCredentials = true;
         const token = sessionStorage.getItem("token");
-        const drinkId = product.drink_id;
         console.log(token);
         axios
             .get(`http://13.125.182.32/drink/get/${product.drink_id}`, {
@@ -93,9 +86,7 @@ const ProductCard = ({ product }: Props) => {
                 console.log(response);
                 setDummyData(response.data.data);
             });
-        // setDummyData(modalDummy);
-        // console.log(dummyData);
-        // 여기서 열어준다
+
         setOpen(true);
     };
     const handleModalSubmit = () => setOpen(false);
@@ -128,7 +119,6 @@ const ProductCard = ({ product }: Props) => {
                     >
                         <Image
                             src={imgUrl}
-                            // src={"https://image.g9.co.kr/g/1610867103/n?ts=1640412256000"}
                             style={{
                                 position: "relative",
                                 height: "300px",

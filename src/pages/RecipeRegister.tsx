@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { Bar } from "../components/Block";
+import { Bar } from "../components/Recipe/Block";
 import {
     ChapterTitleSmall,
     MEASURE_STANDARD,
@@ -8,13 +8,13 @@ import {
     RowGrid,
     StepNum,
     Tag,
-} from "../components/PostInfoContainer";
+} from "../components/Recipe/PostInfoContainer";
 import star_empty from "../assets/images/star_empty.png";
 import star_filled from "../assets/images/star_filled.png";
 import plus_btn from "../assets/images/plus_btn.png";
 import add_drink from "../assets/images/add_drink.png";
 import drink_ill from "../assets/images/drink_ill.png";
-import { CustomCheckbox } from "../components/FilterItem";
+import { CustomCheckbox } from "../components/Recipe/FilterItem";
 import { getDrinkList, getSubMeterial, registerRecipe, registerSubMeterial } from "../apis/recipe";
 
 const TabBlock = styled(Bar)<{ checked?: boolean }>`

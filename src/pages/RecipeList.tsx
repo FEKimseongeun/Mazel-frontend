@@ -1,6 +1,6 @@
-import RecipeCard from "../components/RecipeCard";
+import RecipeCard from "../components/Recipe/RecipeCard";
 import styled from "styled-components";
-import FilterItem from "../components/FilterItem";
+import FilterItem from "../components/Recipe/FilterItem";
 import { useEffect, useState } from "react";
 import { getRecipeList } from "../apis/recipe";
 import { RightButtonWrapper } from "./RecipeRegister";

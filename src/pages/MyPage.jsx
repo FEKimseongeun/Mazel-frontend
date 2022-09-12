@@ -51,7 +51,6 @@ function MyPage() {
                 </button>
             </ReactFileReader>
             <ProfileTabs>
-                {" "}
                 <MyContainer />
             </ProfileTabs>
         </div>
@@ -63,5 +62,5 @@ export default MyPage;
 const ProfileTabs = styled.div`
     position: absolute;
     top: 27%;
-    left: 21%;
+    left: 17.5%;
 `;

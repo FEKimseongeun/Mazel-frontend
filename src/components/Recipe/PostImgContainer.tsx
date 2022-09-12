@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import image27 from "../assets/images/image27.png";
-import eye from "../assets/images/eye.png";
-import heart from "../assets/images/heart_18.png";
+import image27 from "../../assets/images/image27.png";
+import eye from "../../assets/images/eye.png";
+import heart from "../../assets/images/heart_18.png";
 
 const ImgContainer = styled.div`
     display: flex;

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import img27 from "../assets/images/image27.png";
-import heaert18 from "../assets/images/heart_18.png";
+import img27 from "../../assets/images/image27.png";
+import heaert18 from "../../assets/images/heart_18.png";
 import { Link } from "react-router-dom";
 
 const CardContainer = styled.div`

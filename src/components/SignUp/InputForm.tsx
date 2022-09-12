@@ -8,7 +8,7 @@ function InputForm() {
 
     const [email, setEmail] = useState("");
     const [pw, setPw] = useState("");
-    const [checkPw, setcCheckPw] = useState("");
+    // const [checkPw, setcCheckPw] = useState("");
     const [emailValid, setEmailValid] = useState(false);
     const [pwValid, setPwValid] = useState(false);
     const [checkPwValid, setCheckPwValid] = useState(false);
@@ -16,8 +16,7 @@ function InputForm() {
 
     const handlePw = (e: any) => {
         setPw(e.target.value);
-        const regex =
-            /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+])(?!.*[^a-zA-z0-9$`~!@$!%*#^?&\\(\\)\-_=+]).{8,20}$/;
+        const regex = /^(?!.*[^a-zA-z0-9$`~!@$!%*#^?&\\(\\)\-_=+]).{8,20}$/;
 
         if (regex.test(pw)) {
             setPwValid(true);
@@ -39,12 +38,12 @@ function InputForm() {
     };
 
     const handlePwCheck = (e: any) => {
-        setcCheckPw(e.target.value);
-
-        if (pw == checkPw) {
-            setCheckPwValid(true);
-        } else {
+        const checkpw = e.target.value;
+        console.log(checkpw, pw);
+        if (checkpw == pw) {
             setCheckPwValid(false);
+        } else {
+            setCheckPwValid(true);
         }
     };
 
@@ -65,7 +64,7 @@ function InputForm() {
                 Accept: "application/json",
             },
             method: "post",
-            url: "http://mazle.ml/users/create/",
+            url: "http://13.125.182.32/users/create/",
             data: qs.stringify(data),
         })
             .then((res) => {
@@ -104,14 +103,9 @@ function InputForm() {
                         )}
                     </ErrorMessageWrap>
                     <InputLabel>비밀번호 확인</InputLabel>
-                    <InputFormBlock
-                        type="password"
-                        placeholder="비밀번호 다시 입력"
-                        value={checkPw}
-                        onChange={handlePwCheck}
-                    />
+                    <InputFormBlock type="password" placeholder="비밀번호 다시 입력" onChange={handlePwCheck} />
                     <ErrorMessageWrap>
-                        {checkPwValid && checkPw.length > 0 && <div>비밀번호가 일치하지 않습니다.</div>}
+                        {checkPwValid ? <div>비밀번호가 일치하지 않습니다.</div> : null}
                     </ErrorMessageWrap>
                 </SignupBox>
             </div>
