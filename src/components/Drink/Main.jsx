@@ -1,5 +1,4 @@
 import { Box, Flex, Tabs, TabList, Tab, Grid, useMediaQuery, Link, Heading } from "@chakra-ui/react";
-import { Link as RouterLink } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import { GlobalContext } from "./context/GlobalState";
 import loadableVisibility from "react-loadable-visibility/loadable-components";
@@ -11,28 +10,10 @@ const ProductCard = loadableVisibility(() => import("./ProductCard"), {
     fallback: <LoadingProduct />,
 });
 
-//들어온 데이터 형식
-interface StateProperties {
-    drink_id: number;
-    drink_name: string;
-    description: string;
-    calorie: number;
-    manufacture: string;
-    price: number;
-    large_category: string;
-    medium_category: string;
-    small_category: string;
-    img: string;
-    alcohol: number;
-    measure: number;
-    caffeine: number;
-    score: number;
-}
-
 // Give the components chakra props
 const Main = () => {
-    const { products, savedItemsCount } = useContext(GlobalContext);
-    const [productItems, setProductItems] = useState<StateProperties[]>([]);
+    // const { products, savedItemsCount } = useContext(GlobalContext);
+    const [productItems, setProductItems] = useState([]);
     useEffect(() => {
         axios.get("http://13.125.182.32/drink/get/list/", { withCredentials: true }).then((res) => {
             const jsondata = JSON.parse(JSON.stringify(res.data));
@@ -80,7 +61,7 @@ const Main = () => {
                 placeContent="center"
             >
                 {productItems?.map((product) => (
-                    <ProductCard product={product} className="loading-product" />
+                    <ProductCard product={product} />
                 ))}
             </Grid>
         </Box>

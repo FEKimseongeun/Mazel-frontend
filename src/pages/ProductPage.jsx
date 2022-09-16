@@ -7,33 +7,16 @@ import { IoCloseSharp } from "react-icons/io5";
 import axios from "axios";
 
 import DrinkReviewForm from "../components/Drink/DrinkReviewForm/DrinkReviewForm";
-import sampleImg from "../assets/images/sampleImg.png";
 import ReviewCard from "../components/Drink/DrinkReviewForm/ReviewCard";
 
 ReactModal.setAppElement("#root");
-interface drinkReviewState {
-    nickname: string;
-    comment: string;
-    description: string;
-    score: number;
-    like_cnt: number;
-}
-function ProductModal(props: any) {
-    const [reviewItems, setReviewItems] = useState<drinkReviewState[]>([]);
+
+function ProductModal(props) {
+    const [reviewItems, setReviewItems] = useState([]);
 
     const handleClickCancel = () => {
         props.onCancel();
     };
-
-    useEffect(() => {
-        axios.get(`http://13.125.182.32/drink/review/${props.drink_id}`, { withCredentials: true }).then((res) => {
-            // const jsondata = JSON.parse(JSON.stringify(res.data));
-            // console.log(jsondata);
-            // console.log(jsondata.data);
-            console.log(res.data.data);
-            setReviewItems(res.data.data);
-        });
-    }, []);
 
     return (
         <ModalStyleContainer>
