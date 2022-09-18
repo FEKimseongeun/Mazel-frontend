@@ -6,27 +6,8 @@ import styled from "styled-components";
 import axios from "axios";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
-interface drinkReviewState {
-    nickname: string;
-    comment: string;
-    description: string;
-    score: number;
-    like_cnt: number;
-}
-
-const ReviewCard = (props: any) => {
-    const [reviewItems, setReviewItems] = useState<drinkReviewState>();
+const ReviewCard = (props) => {
     const [heart, setHeart] = useState(0);
-
-    // useEffect(() => {
-    //     axios.get(`http://mazle.ml/drink/review/${props.drink_id}`, { withCredentials: true }).then((res) => {
-    //         // const jsondata = JSON.parse(JSON.stringify(res.data));
-    //         // console.log(jsondata);
-    //         // console.log(jsondata.data);
-    //         console.log(res.data.data);
-    //         setReviewItems(res.data.data);
-    //     });
-    // }, []);
 
     const handleHeart = () => {
         if (heart == 0) setHeart(1);
@@ -34,8 +15,8 @@ const ReviewCard = (props: any) => {
     };
 
     return (
-        <div style={{ width: "380px", marginLeft: "95px" }}>
-            <div style={{ display: "flex", margin: "20px 0px" }}>
+        <div style={{ width: "380px", marginLeft: "91px" }}>
+            <div style={{ display: "flex", margin: "10px 0px" }}>
                 <Rating name="read-only-stars" value={props.score} precision={0.1} size="small" readOnly />
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px" }}>

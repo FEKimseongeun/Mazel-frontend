@@ -12,8 +12,6 @@ import ReviewCard from "../components/Drink/DrinkReviewForm/ReviewCard";
 ReactModal.setAppElement("#root");
 
 function ProductModal(props) {
-    const [reviewItems, setReviewItems] = useState([]);
-
     const handleClickCancel = () => {
         props.onCancel();
     };
@@ -60,13 +58,11 @@ function ProductModal(props) {
                                     <ContentsText>분류</ContentsText>
                                 </ContensColumn>
                                 <ContensColumn>
-                                    <ContentsData>{props.measure}ml</ContentsData>
-                                    <ContentsData>{props.price}원</ContentsData>
-                                    <ContentsData>{props.manufacture}</ContentsData>
-                                    <ContentsData>{props.calorie}Kcal</ContentsData>
-                                    <ContentsData>
-                                        {props.large_category} | {props.medium_category} | {props.small_category}
-                                    </ContentsData>
+                                    <ContentsData> {props.measure}ml</ContentsData>
+                                    <ContentsData> {props.price}원</ContentsData>
+                                    <ContentsData> {props.manufacture}</ContentsData>
+                                    <ContentsData> {props.calorie}Kcal</ContentsData>
+                                    <ContentsData> {props.large_category}</ContentsData>
                                 </ContensColumn>
                             </DrinkContents>
                             <DefaultText>*가격은 매장마다 상이할 수 있습니다.</DefaultText>
@@ -74,22 +70,18 @@ function ProductModal(props) {
                         <FlexBoxRight>
                             <DrinkTopContents>
                                 <DrinkName>마즐러 리뷰</DrinkName>
-                                <VStack spacing="5px" w="291px">
-                                    <ReviewCard
-                                        drink_id={props.drink_id}
-                                        score="4.5"
-                                        nickname="성은"
-                                        comment="이거 왕 맛있음"
-                                    />
-                                    <ReviewCard
-                                        drink_id={props.drink_id}
-                                        score="4.0"
-                                        nickname="다영"
-                                        comment="칠성이 더 쎈 느낌"
-                                    />
+                                <VStack spacing="1px" w="291px">
+                                    {props.reviewData.map((review) => (
+                                        <ReviewCard
+                                            drink_id={props.drink_id}
+                                            score={review.score}
+                                            nickname="성은"
+                                            comment={review.comment}
+                                        />
+                                    ))}
                                 </VStack>
                             </DrinkTopContents>
-                            <DrinkReviewForm drink_id={props.drink_id} />
+                            <DrinkReviewForm drink_id={props.drink_id} onSubmit={props.onSubmit} />
                             <ReactionBadge></ReactionBadge>
                         </FlexBoxRight>
                         <div>

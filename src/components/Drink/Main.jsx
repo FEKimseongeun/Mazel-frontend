@@ -16,10 +16,10 @@ const Main = () => {
     const [productItems, setProductItems] = useState([]);
     useEffect(() => {
         axios.get("http://13.125.182.32/drink/get/list/", { withCredentials: true }).then((res) => {
-            const jsondata = JSON.parse(JSON.stringify(res.data));
-            // console.log(jsondata);
+            // const jsondata = JSON.parse(JSON.stringify(res.data));
+            // console.log(res.data);
             // console.log(jsondata.data);
-            setProductItems(jsondata.data);
+            setProductItems(res.data);
         });
     }, []);
 

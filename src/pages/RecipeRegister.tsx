@@ -16,6 +16,7 @@ import add_drink from "../assets/images/add_drink.png";
 import drink_ill from "../assets/images/drink_ill.png";
 import { CustomCheckbox } from "../components/Recipe/FilterItem";
 import { getDrinkList, getSubMeterial, registerRecipe, registerSubMeterial } from "../apis/recipe";
+import axios from "axios";
 
 const TabBlock = styled(Bar)<{ checked?: boolean }>`
     background: ${(prop) => (prop.checked ? "#fafaf6" : "white")};
@@ -276,8 +277,8 @@ const RecipeRegister = () => {
     useEffect(() => {
         getDrinkList(
             (res: any) => {
-                console.log(res.data.data);
-                setDrinkList(res.data.data);
+                console.log(res.data);
+                setDrinkList(res.data);
             },
             (e: any) => {
                 alert("오류가 발생했습니다.");
@@ -316,25 +317,62 @@ const RecipeRegister = () => {
     }, []);
 
     const submitRecipe = () => {
-        // const param = {
-        //     ...recipeInfo,
-        //     ...resource,
-        //     ...desc,
-        //     tag: tag,
-        //     img: file ? file : null,
-        //     sub_meterial: resource.sub_meterial.map((sub) => sub.meterial_id),
-        // };
+        const param = {
+            ...recipeInfo,
+            ...resource,
+            ...desc,
+            tag: tag,
+            img: file ? file : null,
+            sub_meterial: resource.sub_meterial.map((sub) => sub.meterial_id),
+        };
 
-        // registerRecipe(
-        //     param,
-        //     (res: any) => {
-        //         console.log(res);
-        //     },
-        //     () => {
-        //         alert("문제 발생");
-        //     },
-        // );
-        alert("개발 중인 기능입니다. 곧 돌아올게요!");
+        registerRecipe(
+            param,
+            (res: any) => {
+                console.log(res);
+            },
+            () => {
+                alert("문제 발생");
+            },
+        );
+        // alert("개발 중인 기능입니다. 곧 돌아올게요!");
+    };
+
+    const registeRecipeOnclick = (e: any) => {
+        const score = 5;
+        const data = {
+            recipe_name: "사다콜라",
+            summary: "사이다와 콜라를 섞었음",
+            description: ["사이다를 준비한다", "섞는다"],
+            img: "no",
+            price: 1200,
+            measure_standard: "soju",
+            tip: "기포가 나지 않도록 한다",
+            diff_score: 1.5,
+            price_score: 3.0,
+            sweet_score: 4.5,
+            alcohol_score: 0.0,
+            tag_list: ["레몬에이드", "에이드"],
+            main_meterial: [12, 45],
+            sub_meterial: [13],
+        };
+        /* eslint-disable */
+        const qs = require("qs");
+        const token = sessionStorage.getItem("token");
+        const res = axios({
+            headers: {
+                token: `${token}`,
+            },
+            method: "post",
+            url: `http://13.125.182.32/recipe/detail`,
+            data: qs.stringify(data),
+        })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
     return (
@@ -795,7 +833,7 @@ const RecipeRegister = () => {
                     </OptionContainer>
                 </BlockWrapper>
                 <RightButtonWrapper>
-                    <button onClick={submitRecipe}>레시피 등록</button>
+                    <button onClick={registeRecipeOnclick}>레시피 등록</button>
                 </RightButtonWrapper>
             </FormWrapper>
         </ContentWrapper>

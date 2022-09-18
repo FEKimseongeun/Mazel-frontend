@@ -14,6 +14,7 @@ import SignUpStart from "./pages/SignUpPage";
 import SignUp from "./container/SignUpContainer";
 import Drink from "./pages/DrinkPage";
 import SearchResults from "./pages/SearchResults";
+import ProductModal from "./pages/ProductPage";
 
 //테스트용
 import { Provider } from "./components/Drink/context/GlobalState";

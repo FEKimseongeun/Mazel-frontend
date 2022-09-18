@@ -1,7 +1,7 @@
-import { Box, Image, Flex, Link, Text, Button, LinkBox, LinkOverlay, useToast } from "@chakra-ui/react";
+import { Box, Image, Flex, Text, Button, LinkBox, LinkOverlay, useToast, Link } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { BsFillStarFill } from "react-icons/bs";
-import { GlobalContext } from "./context/GlobalState";
+import { useNavigate } from "react-router-dom";
 import NoFillHeart from "../../assets/images/notFillIcon.png";
 import BsFillHeartFill from "../../assets/images/fillIcon.png";
 import styled from "styled-components";
@@ -10,8 +10,10 @@ import axios from "axios";
 import { getDrinkInfo, getDrinkReview } from "../../apis/drink";
 
 const ProductCard = ({ product }) => {
+    const navigate = useNavigate();
     const [isOpen, setOpen] = useState(false);
     const [dummyData, setDummyData] = useState([]);
+    const [reviewData, setReviewData] = useState([]);
     const [isLike, setIsLike] = useState(false);
 
     const deUrl = window.btoa(product.img);
@@ -24,16 +26,20 @@ const ProductCard = ({ product }) => {
                 axios.spread((drinkInfoResp, drinkReviewResp) => {
                     // response를 spread로 받는다
                     console.log(drinkInfoResp.data, drinkReviewResp.data);
+                    setDummyData(drinkInfoResp.data);
+                    setReviewData(drinkReviewResp.data);
                 }),
             )
             .catch((error) => {
                 console.error(error);
             });
-
         setOpen(true);
     };
 
-    const handleModalSubmit = () => setOpen(false);
+    const handleModalSubmit = () => {
+        setOpen(false);
+        if (isOpen == false) setOpen(true);
+    };
     const handleModalCancel = () => setOpen(false);
     return (
         <>
@@ -98,13 +104,23 @@ const ProductCard = ({ product }) => {
                         </Flex>
                     </Flex>
                 </Box>
+                {/* <Link as={ReachLink} to={`/drink/`}> */}
                 <ProductModal
                     isOpen={isOpen}
                     drink_id={product.drink_id}
                     onSubmit={handleModalSubmit}
                     onCancel={handleModalCancel}
                     img={imgUrl}
+                    name={dummyData.drink_name}
+                    description={dummyData.description}
+                    calorie={dummyData.calorie}
+                    large_category={dummyData.large_category}
+                    manufacture={dummyData.manufacture}
+                    price={dummyData.price}
+                    measure={dummyData.measure}
+                    reviewData={reviewData}
                 />
+                {/* </Link> */}
             </Flex>
         </>
     );

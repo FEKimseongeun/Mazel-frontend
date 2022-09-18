@@ -1,4 +1,4 @@
-import { Box, Button, chakra, Text, VStack, Textarea } from "@chakra-ui/react";
+import { Box, Button, chakra, Text, VStack, Textarea, Link } from "@chakra-ui/react";
 import { Formik, Form as FormikForm, FormikHelpers } from "formik";
 import { BiExit } from "react-icons/bi";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
@@ -6,45 +6,30 @@ import { useState } from "react";
 import * as Yup from "yup";
 import axios from "axios";
 
-// type Props = {
-//     authType: string;
-// };
-
-interface Values {
-    email: string;
-    password: string;
-}
-
-// Give the components chakra props
-
-const AuthForm = (props: any) => {
+const AuthForm = (props) => {
     const [value, setValue] = useState("");
+    const [comment, setComment] = useState("");
 
-    const handleInputChange = (e: any) => {
+    const handleInputChange = (e) => {
         const inputValue = e.target.value;
         setValue(inputValue);
     };
 
-    const resisterReview = (e: any) => {
-        const token = sessionStorage.getItem("token");
-        const comment = "정말 맛있지모에요";
+    const resisterReview = (e) => {
         const score = 5;
         const data = {
-            comment: comment,
+            comment: value,
             score: score,
         };
         /* eslint-disable */
         const qs = require("qs");
-
+        const token = sessionStorage.getItem("token");
         const res = axios({
             headers: {
                 token: `${token}`,
-                withCredentials: true,
-                "Access-Control-Allow-Origin": "http://localhost:3000",
-                Accept: "application/json",
             },
             method: "post",
-            url: `http://mazle.ml/drink/review/${props.drink_id}`,
+            url: `http://13.125.182.32/drink/review/${props.drink_id}`,
             data: qs.stringify(data),
         })
             .then((res) => {
@@ -53,6 +38,7 @@ const AuthForm = (props: any) => {
             .catch((err) => {
                 console.log(err);
             });
+        props.onSubmit();
     };
 
     // const handleOnClick = () => {};
@@ -60,7 +46,7 @@ const AuthForm = (props: any) => {
     return (
         <Formik
             initialValues={{ email: "", password: "" }}
-            onSubmit={(values: Values, actions: FormikHelpers<Values>) => {
+            onSubmit={(values, actions) => {
                 setTimeout(() => {
                     console.log("submitted", values);
                     actions.setSubmitting(false);
@@ -77,6 +63,7 @@ const AuthForm = (props: any) => {
                         bg="#F3F3F3"
                         fontSize={12}
                     />
+
                     <Button
                         type="submit"
                         isLoading={props.isSubmitting}

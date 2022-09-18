@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "http://43.200.106.127";
+const URL = "http://13.125.182.32";
 
 const jwtToken =
     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjYxZGM5MWZkLTBiZDYtNDQ0Mi04N2FiLTA1YzgxNGQxM2U3NyIsImV4cCI6MTY2MTQ3OTM5OX0.lzehIizaeEXr_A4Sc7_2lCQrmlqr7NuZyDSa4WmTJzs";
@@ -81,7 +81,7 @@ export const registerSubMeterial = async (param: any, success: any, fail: any) =
         const qs = require("qs");
         const res = await axios({
             method: "post",
-            url: `${URL}/recipe/meterial/`,
+            url: `${URL}/recipe/meterial`,
             data: formData,
             headers: {
                 Accept: "application/json",
@@ -106,7 +106,8 @@ export const registerRecipe = async (param: any, success: any, fail: any) => {
         // const blob = new Blob([JSON.stringify(param)], {
         //     type: "application/json",
         // });
-
+        const token = sessionStorage.getItem("token");
+        console.log(token);
         formData.append(
             "params",
             new Blob([JSON.stringify(param)], {
@@ -116,9 +117,8 @@ export const registerRecipe = async (param: any, success: any, fail: any) => {
 
         const config = {
             headers: {
-                Accept: "application/json",
                 "Content-Type": "multipart/form-data",
-                Authorization: `Bearer ${jwtToken}`,
+                token: `${token}`,
             },
         };
 
